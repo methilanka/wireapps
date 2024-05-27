@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Categories from '../components/Categories';
 import Product from '../components/Product';
+import { Link } from 'react-router-dom';
+import ProductSearch from '../components/ProductSearch';
 
 
 function Home() {
@@ -38,6 +40,7 @@ function Home() {
     <div className="home container mt-4">
       <h2 className="mb-4">Welcome to the Online Store</h2>
       <Categories />
+      <ProductSearch/>
       <div className="top-products">
         <h3>Top Products</h3>
         <div className="row">
@@ -52,6 +55,10 @@ function Home() {
             />
           ))}
         </div>
+      </div>
+      <div className="mt-4">
+        <Link to="/product-table" className="btn btn-secondary">View All Products</Link>
+        <Link to="/mui-product-table" className="btn btn-secondary">View All Products</Link>
       </div>
     </div>
   );

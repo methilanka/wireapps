@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ProductDetails from './pages/ProductDetails';
 import CategoryDetails from './pages/CategoryDetails';
+
 import './App.css';
 
 function App() {
