@@ -22,7 +22,7 @@ function MensClothing() {
         setError(error);
         setLoading(false);
       });
-  }, []); 
+  });
 
   if (loading) {
     return <div>Loading...</div>;
@@ -34,7 +34,7 @@ function MensClothing() {
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Men's clothing</h2>
+      <h2 className="mb-4">Men's Clothing</h2>
       <div className="row">
         {products.map(product => (
             <Product
