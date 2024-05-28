@@ -7,7 +7,7 @@ import ProductDetails from './pages/ProductDetails';
 import CategoryDetails from './pages/CategoryDetails';
 
 import './App.css';
-
+ 
 function App() {
   return (
     <Router>
