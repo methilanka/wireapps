@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Categories from '../components/Categories';
 import Product from '../components/Product';
+import Menscat from '../components/Menscat';
+import Womenscat from '../components/Womenscat';
 import { Link } from 'react-router-dom';
-import ProductSearch from '../components/ProductSearch';
-
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -11,21 +10,29 @@ function Home() {
   const [errorProducts, setErrorProducts] = useState(null);
 
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products?limit=4')
-      .then(response => {
-        if (!response.ok) {
+    const fetchProducts = async () => {
+      try {
+        const [mensClothingResponse, womensClothingResponse] = await Promise.all([
+          fetch("https://fakestoreapi.com/products/category/men's clothing"),
+          fetch("https://fakestoreapi.com/products/category/women's clothing")
+        ]);
+
+        if (!mensClothingResponse.ok || !womensClothingResponse.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json();
-      })
-      .then(data => {
-        setProducts(data);
+
+        const mensClothingProducts = await mensClothingResponse.json();
+        const womensClothingProducts = await womensClothingResponse.json();
+
+        setProducts([...mensClothingProducts, ...womensClothingProducts]);
         setLoadingProducts(false);
-      })
-      .catch(error => {
+      } catch (error) {
         setErrorProducts(error);
         setLoadingProducts(false);
-      });
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   if (loadingProducts) {
@@ -38,27 +45,36 @@ function Home() {
 
   return (
     <div className="home container mt-4">
-      <h2 className="mb-4">Welcome to the Online Store</h2>
-      <Categories />
-      <ProductSearch/>
+
+      {/* <Categories /> */}
       <div className="top-products">
-        <h3>Top Products</h3>
-        <div className="row">
-          {products.map(product => (
-            <Product
-              key={product.id}
-              id={product.id}
-              name={product.title}
-              description={product.description}
-              price={product.price}
-              image={product.image}
-            />
-          ))}
+        <h4 className='mb-4'>Flash Sale</h4>
+
+        <div className="row  gx-5 ">
+        {products.slice(0, 8).map(product => (
+  <Product
+    key={product.id}
+    id={product.id}
+    name={product.title}
+    description={product.description}
+    price={product.price}
+    image={product.image}
+    category={product.category}
+  />
+))}
         </div>
       </div>
       <div className="mt-4">
-        <Link to="/product-table" className="btn btn-secondary">View All Products</Link>
-        <Link to="/mui-product-table" className="btn btn-secondary">View All Products</Link>
+      <h4 className='mb-4'>Categories</h4>
+<div className="row">
+  <div class="col-6">
+  <Link to={`/mens-clothing`} className=" text-decoration-none "><Menscat/></Link>
+  </div>
+  <div className="col-6">
+  <Link to={`/womens-clothing`} className=" text-decoration-none "><Womenscat/></Link>
+</div>
+  </div>
+
       </div>
     </div>
   );

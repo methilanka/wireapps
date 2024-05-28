@@ -1,7 +1,20 @@
-.App {
-  text-align: center;
+.card-img-top{
+  height: 146px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 10px;
 }
 
-.flex-grow-1 {
-  flex-grow: 1;
+.card-text.price{
+  text-align: center;
+  font-weight: bold;
+  color: #0E42FD;
+}
+
+.mens {
+  background: #2BD9AF;
+}
+
+.womens {
+  background: #FF5E84;
 }
